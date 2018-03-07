@@ -1,5 +1,6 @@
 import 'dart:html';
 import 'dart:convert' show JSON;
+import 'dart:js';
 
 TextAreaElement theEditor;
 
@@ -17,6 +18,11 @@ void main() {
 }
 
 void clearEditor(MouseEvent event) {
+  var result = context.callMethod('confirm', ['Clear all text?']);
+  if (result == false) {
+    return;
+  }
+  
   theEditor.text = "";
   saveDocument();
 }
